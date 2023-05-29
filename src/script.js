@@ -45,15 +45,15 @@ function handleColorChange(event) {
     // Determine the priority based on the sum
     var priority;
     if (sum <= 9) {
-      priority = 'Lowest';
+      priority = 'Lowest - 15d';
     } else if (sum <= 12) {
-      priority = 'Low';
+      priority = 'Low - 8d';
     } else if (sum <= 17) {
-      priority = 'Medium';
+      priority = 'Medium - 5d';
     } else if (sum <= 22) {
-      priority = 'High';
+      priority = 'High - 3d';
     } else {
-      priority = 'Highest';
+      priority = 'Highest - 1d';
     }
   
     // Display the priority
