@@ -1,17 +1,208 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
+    <title>Task Priority Calculator</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 3px;
+            position: relative;
+        }
+
+        .tooltip-wrapper {
+            display: inline-block;
+            position: relative;
+        }
+
+        .tooltip {
+            position: absolute;
+            top: -20px;
+            right: -7px;
+            width: 12px;
+            height: 12px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            cursor: default;
+        }
+
+        .tooltip:hover::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            margin-bottom: 5px;
+            /* Adjust the spacing between the tooltip and the label */
+        }
+
+        select {
+            width: 100%;
+            padding: 5px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin-top: 15px;
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            background-color: #4CAF50;
+            color: #FFFFFF;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #priority {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Traffic coloring */
+        .lowest {
+            background-color: #d8f5d3;
+        }
+
+        .low {
+            background-color: #d1e9fc;
+        }
+
+        .medium {
+            background-color: #fffacd;
+        }
+
+        .high {
+            background-color: #ffd1d1;
+        }
+
+        .highest {
+            background-color: #f05a5a;
+        }
+    </style>
 </head>
 
 <body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
+    <h1>Matriz de priorização de iniciativas</h1>
+    <form id="taskForm">
+        <label for="financeImpact">Impacto Financeiro:
+            <div class="tooltip-wrapper">
+                <span class="tooltip"
+                    data-tooltip="Possibilidade de economia real no ambiente e/ou aumento de visibilidade">i</span>
+            </div>
+        </label>
+        <select id="financeImpact" class="criteria">
+            <option value="1">Lowest</option>
+            <option value="2">Low</option>
+                <option value="3" selected>Medium</option>
+            <option value="4">High</option>
+            <option value="5">Highest</option>
+        </select>
+
+        <label for="urgency">Urgência:
+            <div class="tooltip-wrapper">
+                <span class="tooltip"
+                    data-tooltip="Considerar o alinhamento com cliente e prazos e metas estabelecidos">i</span>
+            </div>
+        </label>
+        <select id="urgency" class="criteria">
+            <option value="1">Lowest</option>
+            <option value="2">Low</option>
+                <option value="3" selected>Medium</option>
+            <option value="4">High</option>
+            <option value="5">Highest</option>
+        </select>
+
+        <label for="operationalImpact">Impacto Operacional:
+            <div class="tooltip-wrapper">
+                <span class="tooltip" data-tooltip="Afeta a eficiência e qualidade dos processos operacionais. 
+
+        Priorizar tarefas que tenham impacto significativo na performance do time ou qualidade dos processos">i</span>
+            </div>
+        </label>
+        <select id="operationalImpact" class="criteria">
+            <option value="1">Lowest</option>
+            <option value="2">Low</option>
+                <option value="3" selected>Medium</option>
+            <option value="4">High</option>
+            <option value="5">Highest</option>
+        </select>
+
+        <label for="dependency">Dependência e colaboração:
+            <div class="tooltip-wrapper">
+                <span class="tooltip"
+                    data-tooltip="Necessidade de envolver outras pessoas e/ou times para conclusão. Priorizar as tarefas que tenham dependências claras e exigem maior colaboração">i</span>
+            </div>
+        </label>
+        <select id="dependency" class="criteria">
+            <option value="1">Lowest</option>
+            <option value="2">Low</option>
+                <option value="3" selected>Medium</option>
+            <option value="4">High</option>
+            <option value="5">Highest</option>
+        </select>
+
+        <label for="technicalComplexity">Complexidade técnica:
+            <div class="tooltip-wrapper">
+                <span class="tooltip"
+                    data-tooltip="Priorizar tarefas que exigem maior conhecimento técnico ou são mais complexas">i</span>
+            </div>
+        </label>
+        <select id="technicalComplexity" class="criteria">
+            <option value="1">Lowest</option>
+            <option value="2">Low</option>
+                <option value="3" selected>Medium</option>
+            <option value="4">High</option>
+            <option value="5">Highest</option>
+        </select>
+
+        <button type="submit">Calculate Priority</button>
+    </form>
+
+    <div id="result">
+        <strong>Task Priority:</strong>
+        <span id="priority"></span>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
